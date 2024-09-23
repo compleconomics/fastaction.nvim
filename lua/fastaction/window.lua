@@ -109,12 +109,13 @@ function M.popup_window(content, on_buf_create, opts)
     vim.bo[buffer].filetype = 'fastaction_popup'
     vim.bo[buffer].buftype = 'nofile'
 
-    local line = 2 -- avoid the title and the divider i.e. start at line 2
-    local chars = math.floor((#content - 2) / (26 - #keys.filter_alpha_keys(opts.dismiss_keys)))
-    for _, _ in pairs(content) do
-        vim.api.nvim_buf_add_highlight(buffer, m.namespace, 'MoreMsg', line, 0, 3 + chars)
-        line = line + 1
-    end
+    -- --- commented: do not highlight letter shortcuts
+    -- local line = 2 -- avoid the title and the divider i.e. start at line 2
+    -- local chars = math.floor((#content - 2) / (26 - #keys.filter_alpha_keys(opts.dismiss_keys)))
+    -- for _, _ in pairs(content) do
+    --     vim.api.nvim_buf_add_highlight(buffer, m.namespace, 'MoreMsg', line, 0, 3 + chars)
+    --     line = line + 1
+    -- end
     vim.api.nvim_set_option_value('modifiable', false, { buf = buffer })
     for _, key in ipairs(opts.dismiss_keys) do
         vim.keymap.set(
